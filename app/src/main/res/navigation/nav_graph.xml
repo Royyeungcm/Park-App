@@ -18,14 +18,28 @@
         android:id="@+id/itineraryFragment"
         android:name="com.example.project_g01.fragments.ItineraryFragment"
         android:label="fragment_itinerary"
-        tools:layout="@layout/fragment_itinerary" />
+        tools:layout="@layout/fragment_itinerary" >
+        <action
+            android:id="@+id/action_itineraryFragment_to_itineraryDetailsFragment"
+            app:destination="@id/itineraryDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/parkDetailsFragment"
         android:name="com.example.project_g01.fragments.ParkDetailsFragment"
         android:label="fragment_park_details"
-        tools:layout="@layout/fragment_park_details" >
+        tools:layout="@layout/fragment_park_details" />
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.project_g01.fragments.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
         <action
-            android:id="@+id/action_parkDetailsFragment_to_itineraryFragment"
-            app:destination="@id/itineraryFragment" />
+            android:id="@+id/action_splashFragment_to_findParksFragment"
+            app:destination="@id/findParksFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/itineraryDetailsFragment"
+        android:name="com.example.project_g01.fragments.ItineraryDetailsFragment"
+        android:label="fragment_itinerary_details"
+        tools:layout="@layout/fragment_itinerary_details" />
 </navigation>
