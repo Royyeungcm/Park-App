@@ -1,4 +1,4 @@
-package com.example.project_g01
+package com.example.project_g01.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,7 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import com.example.project_g01.databinding.ActivityMainBinding
-import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.project_g01.R
 
 class MainActivity : AppCompatActivity() {
 
