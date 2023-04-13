@@ -5,56 +5,65 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.navArgs
 import com.example.project_g01.R
+import com.example.project_g01.constants.*
+import com.example.project_g01.databinding.FragmentItineraryDetailsBinding
+import com.example.project_g01.models.Itinerary
+import com.google.firebase.firestore.FirebaseFirestore
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class ItineraryDetailsFragment : Fragment(R.layout.fragment_itinerary_details) {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ItineraryDetailsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ItineraryDetailsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentItineraryDetailsBinding? = null
+    private val binding get() = _binding!!
+    private val args: ItineraryDetailsFragmentArgs by navArgs()
+    private var db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_itinerary_details, container, false)
+        _binding = FragmentItineraryDetailsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ItineraryDetailsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ItineraryDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val itinerary: Itinerary = args.itinerary
+
+        // init page info
+        binding.tvParkName.text = itinerary.venue
+        binding.tvParkAddress.text = itinerary.address
+        binding.tvTripDate.text = itinerary.date
+        binding.tvNotes.text = itinerary.notes
+
+        binding.btnSave.setOnClickListener {
+            // overwrite existing record upon save changes
+            var record = db.collection(COLLECTION_ITINERARY)
+                        .document( itinerary.venue )
+
+            itinerary.date = binding.etTripDate.text.toString()
+            itinerary.notes = binding.etNotes.text.toString()
+
+            record.set(itinerary)
+
+            Toast.makeText(requireContext(), ITINERARY_UPDATED, Toast.LENGTH_SHORT)
+                .show()
+        }
+
+        binding.btnDelete.setOnClickListener {
+            db.collection(COLLECTION_ITINERARY)
+                .document( itinerary.venue )
+                .delete()
+
+            Toast.makeText(requireContext(), ITINERARY_DELETED, Toast.LENGTH_SHORT)
+                .show()
+        }
     }
 }

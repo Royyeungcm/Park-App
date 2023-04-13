@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.project_g01.R
+import com.example.project_g01.constants.COLLECTION_ITINERARY
 import com.example.project_g01.databinding.FragmentItineraryBinding
 import com.example.project_g01.models.Itinerary
 import com.google.firebase.firestore.FirebaseFirestore
