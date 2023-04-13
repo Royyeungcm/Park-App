@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.project_g01.databinding.ActivityMainBinding
 import com.example.project_g01.R
 
@@ -23,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.container1) as NavHostFragment
         this.navController = navHostFragment.navController
+        setupWithNavController(binding.bottomNavigationView, navController)
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
     }
