@@ -22,9 +22,11 @@ class MainActivity : AppCompatActivity() {
         this.binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // bottom nav setup
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.container1) as NavHostFragment
         this.navController = navHostFragment.navController
         setupWithNavController(binding.bottomNavigationView, navController)
+
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
