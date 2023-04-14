@@ -40,7 +40,7 @@ class ItineraryFragment : Fragment(R.layout.fragment_itinerary) {
                 val adapter = ItineraryAdapter(requireContext(), itineraryList)
                 binding.lvItineraries.adapter = adapter
 
-                Log.e(TAG_DEBUG, "${this::class.java.name} > $ITINERARY_LIST_LOADED")
+                Log.d(TAG_DEBUG, "${this::class.java.name} > $ITINERARY_LIST_LOADED")
             }
             .addOnFailureListener {
                 Log.e(TAG_ERROR, "${this::class.java.name} > $ERROR_MSG_DB_FETCH_FAILURE")

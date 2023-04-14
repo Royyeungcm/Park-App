@@ -25,7 +25,7 @@ class ItineraryAdapter(context: Context, itineraryList: List<Itinerary>)
             
             tvParkName.text = it.venue
             tvParkAddress.text = it.address
-            tvTripDate.text = it.date
+            tvTripDate.text = "Trip Date: ${it.date}"
         }
 
         return view
