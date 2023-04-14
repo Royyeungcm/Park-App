@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.project_g01.R
 import com.example.project_g01.constants.*
@@ -58,6 +59,9 @@ class ItineraryDetailsFragment : Fragment(R.layout.fragment_itinerary_details) {
             Toast.makeText(requireContext(), ITINERARY_UPDATED, Toast.LENGTH_SHORT)
                 .show()
 
+            val action = ItineraryDetailsFragmentDirections.actionItineraryDetailsFragmentToItineraryFragment()
+            findNavController().navigate(action)
+
             Log.d(TAG_DEBUG, "${this::class.java.name} > $ITINERARY_UPDATED")
         }
 
@@ -69,6 +73,9 @@ class ItineraryDetailsFragment : Fragment(R.layout.fragment_itinerary_details) {
 
             Toast.makeText(requireContext(), ITINERARY_DELETED, Toast.LENGTH_SHORT)
                 .show()
+
+            val action = ItineraryDetailsFragmentDirections.actionItineraryDetailsFragmentToItineraryFragment()
+            findNavController().navigate(action)
 
             Log.d(TAG_DEBUG, "${this::class.java.name} > $ITINERARY_DELETED")
         }

@@ -40,5 +40,8 @@
         <argument
             android:name="itinerary"
             app:argType="com.example.project_g01.models.Itinerary" />
+        <action
+            android:id="@+id/action_itineraryDetailsFragment_to_itineraryFragment"
+            app:destination="@id/itineraryFragment" />
     </fragment>
 </navigation>
