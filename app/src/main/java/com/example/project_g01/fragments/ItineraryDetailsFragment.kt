@@ -1,6 +1,7 @@
 package com.example.project_g01.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,9 +41,10 @@ class ItineraryDetailsFragment : Fragment(R.layout.fragment_itinerary_details) {
         // init page info
         binding.tvParkName.text = itinerary.venue
         binding.tvParkAddress.text = itinerary.address
-        binding.tvTripDate.text = itinerary.date
-        binding.tvNotes.text = itinerary.notes
+        binding.etTripDate.setText( itinerary.date )
+        binding.etNotes.setText( itinerary.notes )
 
+        // when Save Changes button clicked
         binding.btnSave.setOnClickListener {
             // overwrite existing record upon save changes
             var record = db.collection(COLLECTION_ITINERARY)
@@ -55,8 +57,11 @@ class ItineraryDetailsFragment : Fragment(R.layout.fragment_itinerary_details) {
 
             Toast.makeText(requireContext(), ITINERARY_UPDATED, Toast.LENGTH_SHORT)
                 .show()
+
+            Log.d(TAG_DEBUG, "${this::class.java.name} > $ITINERARY_UPDATED")
         }
 
+        // when Delete Itinerary button clicked
         binding.btnDelete.setOnClickListener {
             db.collection(COLLECTION_ITINERARY)
                 .document( itinerary.venue )
@@ -64,6 +69,8 @@ class ItineraryDetailsFragment : Fragment(R.layout.fragment_itinerary_details) {
 
             Toast.makeText(requireContext(), ITINERARY_DELETED, Toast.LENGTH_SHORT)
                 .show()
+
+            Log.d(TAG_DEBUG, "${this::class.java.name} > $ITINERARY_DELETED")
         }
     }
 }

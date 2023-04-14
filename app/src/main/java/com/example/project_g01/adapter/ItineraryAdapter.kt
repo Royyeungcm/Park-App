@@ -23,9 +23,9 @@ class ItineraryAdapter(context: Context, itineraryList: List<Itinerary>)
             val tvParkAddress: TextView = view.findViewById(R.id.tvParkAddress)
             val tvTripDate: TextView = view.findViewById(R.id.tvTripDate)
             
-            tvParkName.text = "Substitute DB values..."
-            tvParkAddress.text = "Substitute DB values..."
-            tvTripDate.text = "Substitute DB values..."
+            tvParkName.text = it.venue
+            tvParkAddress.text = it.address
+            tvTripDate.text = it.date
         }
 
         return view
