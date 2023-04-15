@@ -49,7 +49,7 @@ class ItineraryDetailsFragment : Fragment(R.layout.fragment_itinerary_details) {
         binding.btnSave.setOnClickListener {
             // overwrite existing record upon save changes
             var record = db.collection(COLLECTION_ITINERARY)
-                        .document( itinerary.venue )
+                        .document( itinerary.parkCode )
 
             itinerary.date = binding.etTripDate.text.toString()
             itinerary.notes = binding.etNotes.text.toString()
@@ -68,7 +68,7 @@ class ItineraryDetailsFragment : Fragment(R.layout.fragment_itinerary_details) {
         // when Delete Itinerary button clicked
         binding.btnDelete.setOnClickListener {
             db.collection(COLLECTION_ITINERARY)
-                .document( itinerary.venue )
+                .document( itinerary.parkCode )
                 .delete()
 
             Toast.makeText(requireContext(), ITINERARY_DELETED, Toast.LENGTH_SHORT)
