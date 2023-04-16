@@ -10,10 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.project_g01.R
-import com.example.project_g01.constants.COLLECTION_ITINERARY
-import com.example.project_g01.constants.ERROR_MSG_DB_FETCH_FAILURE
-import com.example.project_g01.constants.ITINERARY_ADDED
-import com.example.project_g01.constants.TAG_ERROR
+import com.example.project_g01.constants.*
 import com.example.project_g01.databinding.FragmentParkDetailsBinding
 import com.example.project_g01.models.Itinerary
 import com.google.firebase.firestore.FirebaseFirestore
@@ -58,6 +55,8 @@ class ParkDetailsFragment : Fragment(R.layout.fragment_park_details) {
             )
             doc.set( itinerary )
 
+            Log.d(TAG_DEBUG, "${this::class.java.name} > $ITINERARY_ADDED")
+
             Toast.makeText(requireContext(), ITINERARY_ADDED, Toast.LENGTH_SHORT)
                 .show()
 
@@ -82,7 +81,7 @@ class ParkDetailsFragment : Fragment(R.layout.fragment_park_details) {
 
     private fun disableBtn() {
         binding.btnAddToItinerary.isEnabled = false
-        binding.btnAddToItinerary.text = "Itinerary Added"
+        binding.btnAddToItinerary.text = ITINERARY_ADDED
     }
 
     override fun onDestroyView() {

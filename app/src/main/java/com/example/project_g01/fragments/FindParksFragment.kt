@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.project_g01.R
+import com.example.project_g01.constants.*
 import com.example.project_g01.databinding.FragmentFindParksBinding
 import com.example.project_g01.models.AllPark
 import com.example.project_g01.models.ShowingPark
@@ -26,8 +27,6 @@ import retrofit2.Response
 
 
 class FindParksFragment : Fragment(R.layout.fragment_find_parks), OnMapReadyCallback {
-    private val TAG = "SCREENFINDPARK"
-
     //binding variables
     private var _binding: FragmentFindParksBinding? = null
     private val binding get() = _binding!!
@@ -35,7 +34,7 @@ class FindParksFragment : Fragment(R.layout.fragment_find_parks), OnMapReadyCall
     private lateinit var mMap: GoogleMap
 
     private var firestore = FirebaseFirestore.getInstance()
-    val statesCollectionRef = firestore.collection("states")
+    private val statesCollectionRef = firestore.collection(COLLECTION_STATES)
 
     var showingParkList: MutableList<ShowingPark> = mutableListOf()
 
@@ -56,12 +55,12 @@ class FindParksFragment : Fragment(R.layout.fragment_find_parks), OnMapReadyCall
         val mapFragment =
             childFragmentManager.findFragmentById(binding.fragmentMap.id) as? SupportMapFragment
         mapFragment?.getMapAsync {
-            Log.d(TAG, "Map fragment found")
+            Log.d(TAG_DEBUG, "${this::class.java.name} > $MAP_FRAGMENT_FOUND")
         }
         if (mapFragment == null) {
-            Log.d(TAG, "++++ map fragment is null")
+            Log.d(TAG_DEBUG, "${this::class.java.name} > $MAP_FRAGMENT_NULL")
         } else {
-            Log.d(TAG, "++++ map fragment is NOT null")
+            Log.d(TAG_DEBUG, "${this::class.java.name} > $MAP_FRAGMENT_NOT_NULL")
             mapFragment?.getMapAsync(this)
         }
 
@@ -90,14 +89,13 @@ class FindParksFragment : Fragment(R.layout.fragment_find_parks), OnMapReadyCall
             if (document.exists()) {
                 val foundStateAbbreviation = document.get("abbreviation").toString()
                 lifecycleScope.launch {
-                    Log.d(TAG, "step1")
                     var responseFromAPI: AllPark? = getAllParkFromAPI(foundStateAbbreviation)
                     if (responseFromAPI == null) {
-                        Log.d(TAG, "ERROR with the getAllParkFromAPI() function")
+                        Log.e(TAG_ERROR, "${this::class.java.name} > $MAP_API_ERROR")
                         return@launch
                     }
-                    Log.d(TAG, "SUCCESS from the getAllParkFromAPI() function")
-                    Log.d(TAG, responseFromAPI.data[1].fullName)
+                    Log.d(TAG_DEBUG, "${this::class.java.name} > $MAP_API_SUCCESS")
+                    Log.d(TAG_DEBUG, "${this::class.java.name} > fullName=${responseFromAPI.data[1].fullName}")
 
 
                     for (currPark in responseFromAPI.data) {
@@ -142,21 +140,20 @@ class FindParksFragment : Fragment(R.layout.fragment_find_parks), OnMapReadyCall
     }
 
     private suspend fun getAllParkFromAPI(foundStateAbbreviation: String): AllPark? {
-        val apiKey = "gp36bm39ndC7rSfRlQWHDLW4uoPRAZxvtDY81Obc"
+        val apiKey = API_KEY
         var apiService: ApiService = RetrofitInstance.retrofitService
-        Log.d(TAG, foundStateAbbreviation)
+        Log.d(TAG_DEBUG, "${this::class.java.name} > foundStateAbbreviation=$foundStateAbbreviation")
         val response: Response<AllPark> = apiService.getAllPark(foundStateAbbreviation, apiKey)
         if (response.isSuccessful) {
             val dataFromAPI = response.body()   /// myresponseobject
             if (dataFromAPI == null) {
-                Log.d("API", "No data from API or some other error")
+                Log.e(TAG_ERROR, API_NO_DATA_ERROR)
                 return null
             }
-            Log.d(TAG, "Here is the data from the API")
-            Log.d(TAG, dataFromAPI.toString())
+            Log.d(TAG_DEBUG, "${this::class.java.name} > data=$dataFromAPI")
             return dataFromAPI
         } else {
-            Log.d(TAG, "An error occurred")
+            Log.d(TAG_ERROR, "${this::class.java.name} > $ERROR_MSG_API_FAILURE")
             return null
         }
     }
