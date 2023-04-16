@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_findParksFragment_to_parkDetailsFragment"
             app:destination="@id/parkDetailsFragment" />
+        <action
+            android:id="@+id/action_findParksFragment_to_itineraryFragment"
+            app:destination="@id/itineraryFragment" />
     </fragment>
     <fragment
         android:id="@+id/itineraryFragment"
@@ -31,6 +34,9 @@
         <action
             android:id="@+id/action_parkDetailsFragment_to_itineraryFragment"
             app:destination="@id/itineraryFragment" />
+        <argument
+            android:name="selectedPark"
+            app:argType="com.example.project_g01.models.ShowingPark" />
     </fragment>
     <fragment
         android:id="@+id/itineraryDetailsFragment"
