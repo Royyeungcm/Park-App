@@ -1,6 +1,7 @@
 package com.example.project_g01.models
 
 data class Park(
+    val parkCode:String,
     val url:String,
     val fullName:String,
     val description:String,

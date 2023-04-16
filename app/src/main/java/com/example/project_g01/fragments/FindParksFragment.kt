@@ -2,10 +2,10 @@ package com.example.project_g01.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.project_g01.R
@@ -109,6 +109,7 @@ class FindParksFragment : Fragment(R.layout.fragment_find_parks), OnMapReadyCall
                                 .snippet(currPark.addresses[0].line1)
                         )
                         val instance = ShowingPark(
+                            currPark.parkCode,
                             currPark.fullName,
                             currPark.images[0].url,
                             currPark.addresses[0].line1,
